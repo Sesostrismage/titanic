@@ -10,24 +10,31 @@ from sklearn.preprocessing import scale
 sys.path.append('D:\\NIW\\Python modules')
 import nickpy
 
-# Data import.
+'''
+Data import.
+'''
 in_data = pd.read_csv(r"C:\Users\Nick\Desktop\Machine Learning\Titanic\train.csv")
 
 in1 = in_data.copy()
 
-# Age cleaning.
+'''
+Data cleaning.
+'''
+# Age cleaning. Unknown ages set to negative number.
+# Will be -99999 later to comply with ML algorithms.
 in1.loc[in1['Age'].isnull(), 'Age'] = -50
 
-# Sex cleaning.
+# Sex cleaning, mapping strings to numbers.
 sex = {'male':1, 'female':2}
 in1['Sex'].replace(sex, inplace=True)
 
-#Embarkation cleaning.
+#Embarkation cleaning, strings to numbers in order of embarkation.
 embark = {'Q':1, 'C':2, 'S':3}
 in1['Embarked'].replace(embark, inplace=True)
 in1.loc[in1['Embarked'].isnull(), 'Embarked'] = -99999
 
 # Work on title feature engineering.
+# Get the first string after the comma in the name.
 titles_1 = in1['Name'].str.split(',')
 titles_2 = titles_1.str.get(1)
 titles_3 = titles_2.str.split()
@@ -37,12 +44,17 @@ unique_titles = titles_4.unique()
 
 # print(titles_1[0])
 
+'''
+Classification.
+'''
+# Choose features for classification.
 names = in1['Name']
 X = in1[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']]
 X = scale(X, copy=True)
 Y = in1['Survived']
 
-
+# The commented-out plot command below requires the nickpy module,
+# also from sesotrismage's github account.
 #nickpy.plot.factor_scatter_matrix(data, labels)
 
 validation_size = 0.20
