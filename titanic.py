@@ -10,7 +10,6 @@ from sklearn.preprocessing import scale
 sys.path.append('D:\\NIW\\Python modules')
 import nickpy
 
-
 '''
 Data import.
 '''
