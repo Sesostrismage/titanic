@@ -17,6 +17,7 @@ in_data = pd.read_csv(r"C:\Users\Nick\Desktop\Machine Learning\Titanic\train.csv
 
 in1 = in_data.copy()
 
+
 '''
 Data cleaning.
 '''
